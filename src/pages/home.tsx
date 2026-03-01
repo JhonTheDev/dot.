@@ -97,9 +97,9 @@ export default function Home() {
     },
     {
       icon: Code2,
-      title: 'Desenvolvimento Web',
+      title: 'Criação de Aplicações Web',
       description:
-        'Soluções tecnológicas robustas utilizando as melhores práticas e tecnologias do mercado.',
+        'Soluções web robustas e escaláveis, utilizando as tecnologias mais recentes para garantir performance e segurança.',
     },
     {
       icon: Megaphone,
@@ -138,7 +138,7 @@ export default function Home() {
             </motion.h1>
 
             <motion.p variants={itemVariants} className="hero__description">
-              A dot. é uma iniciativa focada na criação de sites e experiências digitais com
+              A dot. é uma iniciativa focada na criação de sites e conteúdos digitais com
               posicionamento experimental. Elevamos sua marca no ambiente digital.
             </motion.p>
 

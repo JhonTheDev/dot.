@@ -1,5 +1,6 @@
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
 import Home from './pages/home';
+import Sobre from './pages/about';
 import Navbar from './components/navbar';
 
 function App() {
@@ -11,6 +12,7 @@ function App() {
         <main className="app-main">
           <Routes>
             <Route path="/" element={<Home />} />
+            <Route path="/sobre" element={<Sobre />} />
             <Route path="*" element={<Navigate to="/" />} />
           </Routes>
         </main>
