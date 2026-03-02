@@ -2,7 +2,6 @@ import { useEffect, useRef, useState } from 'react';
 import { motion, useInView, useReducedMotion, type Variants } from 'framer-motion';
 import {
   ArrowRight,
-  Code,
   Zap,
   Layers,
   Target,
