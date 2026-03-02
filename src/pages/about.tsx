@@ -13,7 +13,7 @@ export default function Sobre() {
             transition={{ duration: 0.5 }}
           >
             <h1 className="about-page__title">
-              Sobre a <span className="about-page__title-highlight">dot.</span>
+              Sobre a dot<span className="about-page__title-highlight">.</span>
             </h1>
 
             <div className="about-page__text-group">

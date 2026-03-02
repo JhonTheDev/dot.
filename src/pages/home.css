@@ -42,10 +42,7 @@
 }
 
 .hero__title-highlight {
-  color: transparent;
-  background: linear-gradient(90deg, var(--primary), var(--secondary));
-  background-clip: text;
-  -webkit-background-clip: text;
+  color: var(--primary);
 }
 
 .hero__description {
@@ -53,6 +50,23 @@
   font-size: var(--text-xl);
   color: var(--text-muted);
   margin-bottom: 2.25rem;
+}
+
+.hero__typewriter {
+  margin: -0.5rem 0 1.8rem;
+  min-height: 2rem;
+  display: inline-flex;
+  align-items: center;
+  font-family: var(--font-primary);
+  font-size: clamp(1.25rem, 1.4vw, 1.7rem);
+  font-weight: var(--weight-semibold);
+  letter-spacing: var(--tracking-tight);
+  color: var(--primary);
+}
+
+.hero__typewriter-word {
+  display: inline-block;
+  min-width: 16ch;
 }
 
 .hero__actions {
@@ -431,6 +445,16 @@
     padding: 5.25rem 0 5.15rem;
   }
 
+  .hero__typewriter {
+    margin: -0.35rem 0 1.4rem;
+    min-height: 1.6rem;
+    font-size: var(--text-xl);
+  }
+
+  .hero__typewriter-word {
+    min-width: 14ch;
+  }
+
   .hero__description {
     font-size: var(--text-lg);
   }
@@ -472,3 +496,4 @@
     padding: 1.35rem;
   }
 }
+

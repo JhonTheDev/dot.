@@ -1,5 +1,5 @@
-import { useRef } from 'react';
-import { motion, useInView, type Variants } from 'framer-motion';
+import { useEffect, useRef, useState } from 'react';
+import { motion, useInView, useReducedMotion, type Variants } from 'framer-motion';
 import {
   ArrowRight,
   Code,
@@ -16,14 +16,69 @@ import {
   Mail,
   Phone,
   MapPin,
+  Clapperboard,
+  Video,
 } from 'lucide-react';
 import './home.css';
+
+const TYPEWRITER_WORDS = ['Marca', 'Posicionamento', 'Imagem', 'Profissionalismo'];
+const TYPEWRITER_CYCLE_MS = 2300;
+const TYPE_DURATION_RATIO = 0.48;
+const HOLD_DURATION_RATIO = 0.22;
+const ERASE_DURATION_RATIO = 0.3;
 
 export default function Home() {
   const aboutRef = useRef(null);
   const servicesRef = useRef(null);
+  const prefersReducedMotion = useReducedMotion();
   const isAboutInView = useInView(aboutRef, { once: true, margin: '-100px' });
   const isServicesInView = useInView(servicesRef, { once: true, margin: '-100px' });
+  const [activeWordIndex, setActiveWordIndex] = useState(0);
+  const [typedWord, setTypedWord] = useState('');
+
+  useEffect(() => {
+    if (prefersReducedMotion) {
+      return;
+    }
+
+    const currentWord = TYPEWRITER_WORDS[activeWordIndex];
+    const typeDuration = TYPEWRITER_CYCLE_MS * TYPE_DURATION_RATIO;
+    const holdDuration = TYPEWRITER_CYCLE_MS * HOLD_DURATION_RATIO;
+    const eraseDuration = TYPEWRITER_CYCLE_MS * ERASE_DURATION_RATIO;
+    const tickIntervalMs = 50;
+    const startedAt = performance.now();
+
+    const intervalId = window.setInterval(() => {
+      const elapsed = performance.now() - startedAt;
+
+      if (elapsed >= TYPEWRITER_CYCLE_MS) {
+        setActiveWordIndex((prevIndex) => (prevIndex + 1) % TYPEWRITER_WORDS.length);
+        return;
+      }
+
+      if (elapsed <= typeDuration) {
+        const progress = elapsed / typeDuration;
+        const visibleChars = Math.max(1, Math.ceil(progress * currentWord.length));
+        setTypedWord(currentWord.slice(0, visibleChars));
+        return;
+      }
+
+      if (elapsed <= typeDuration + holdDuration) {
+        setTypedWord(currentWord);
+        return;
+      }
+
+      const eraseElapsed = elapsed - typeDuration - holdDuration;
+      const eraseProgress = eraseElapsed / eraseDuration;
+      const charsToErase = Math.ceil(eraseProgress * currentWord.length);
+      const visibleChars = Math.max(0, currentWord.length - charsToErase);
+      setTypedWord(currentWord.slice(0, visibleChars));
+    }, tickIntervalMs);
+
+    return () => {
+      window.clearInterval(intervalId);
+    };
+  }, [activeWordIndex, prefersReducedMotion]);
 
   const containerVariants: Variants = {
     hidden: { opacity: 0 },
@@ -49,9 +104,9 @@ export default function Home() {
       desc: 'Interfaces intuitivas e esteticamente precisas, desenhadas para conversão e impacto visual.',
     },
     {
-      icon: Code,
-      title: 'Desenvolvimento',
-      desc: 'Aplicações web escaláveis utilizando as melhores e mais recentes tecnologias do mercado.',
+      icon: Video,
+      title: 'Edição de Vídeos',
+      desc: 'Vídeos dinâmicos e envolventes, otimizados para engajamento e compartilhamento nas redes sociais.',
     },
     {
       icon: Zap,
@@ -113,6 +168,12 @@ export default function Home() {
       description:
         'Ajudamos a construir uma identidade de marca sólida e consistente, que ressoe com seu público-alvo.',
     },
+    {
+      icon: Clapperboard,
+      title: 'Criação de Conteúdo Digital',
+      description:
+        'Criação de vídeos, animações e outros conteúdos digitais para engajar seu público e fortalecer sua presença online.',
+    }
   ];
 
   return (
@@ -130,11 +191,12 @@ export default function Home() {
               Estúdio Digital Experimental
             </motion.div>
 
-            <motion.h1 variants={itemVariants} className="hero__title">
-              Projetando o{' '}
-              <span className="hero__title-highlight">invisível.</span>
+            <motion.h1 className="hero__title">
+              Evoluindo sua marca
               <br />
-              Construindo o futuro.
+              Através de <span className="hero__title-highlight">
+                {prefersReducedMotion ? TYPEWRITER_WORDS[0] : typedWord}
+              </span>
             </motion.h1>
 
             <motion.p variants={itemVariants} className="hero__description">
@@ -165,7 +227,7 @@ export default function Home() {
             <div>
               <h2 className="highlights__title">Soluções digitais.</h2>
               <p className="highlights__subtitle">
-                Unimos design refinado e tecnologia robusta para entregar produtos excepcionais.
+                Soluções criativas e inovadoras para impulsionar sua marca no ambiente digital.
               </p>
             </div>
             <a href="#servicos" className="highlights__more">
