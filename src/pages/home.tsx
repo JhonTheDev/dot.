@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from 'react';
+import { lazy, Suspense, useEffect, useRef, useState } from 'react';
 import { motion, useInView, useReducedMotion, type Variants } from 'framer-motion';
 import {
   ArrowRight,
@@ -25,6 +25,9 @@ const TYPEWRITER_CYCLE_MS = 2300;
 const TYPE_DURATION_RATIO = 0.48;
 const HOLD_DURATION_RATIO = 0.22;
 const ERASE_DURATION_RATIO = 0.3;
+const HeroOrbitBackground = lazy(() =>
+  import('../animations/orbit/HeroOrbitBackground')
+);
 
 export default function Home() {
   const aboutRef = useRef(null);
@@ -178,6 +181,9 @@ export default function Home() {
   return (
     <div className="home-page">
       <section id="inicio" className="hero">
+        <Suspense fallback={null}>
+          <HeroOrbitBackground />
+        </Suspense>
         <div className="section-container">
           <motion.div
             className="hero__content"
@@ -205,10 +211,7 @@ export default function Home() {
 
             <motion.div variants={itemVariants} className="hero__actions">
               <a href="#contato" className="btn btn--primary btn--hero">
-                Iniciar Projeto <ArrowRight size={20} />
-              </a>
-              <a href="#servicos" className="btn btn--ghost btn--hero">
-                Nossos Serviços
+                Solicitar Orçamento <ArrowRight size={20} />
               </a>
             </motion.div>
           </motion.div>

@@ -135,3 +135,67 @@ Preferir simplicidade.
 - surfedigital.io → Microinterações refinadas e contraste forte em CTA
 
 Referências devem inspirar comportamento, não ser copiadas.
+
+## POLÍTICA RESPONSIVA DE ANIMAÇÕES
+
+Esta política define limites obrigatórios para evitar distração e preservar foco no conteúdo.
+
+### 1) Limites por tela
+
+#### Desktop (>= 1025px)
+- Motion permitido: LEVEL 4 (WebGL) com intensidade moderada.
+- Órbita: pode ocupar área sem conteúdo principal (preferência lateral direita).
+- Opacidade máxima da camada de fundo: **0.72**.
+- Bloom: **até 0.20**.
+- Velocidade estrutural: **até 0.019**.
+
+#### Tablet (768px–1024px)
+- Motion permitido: LEVEL 3 com simplificação visual.
+- Órbita: densidade reduzida e sem parallax.
+- Opacidade máxima da camada de fundo: **0.56**.
+- Bloom: **até 0.08**.
+- Velocidade estrutural: **até 0.013**.
+
+#### Mobile (<= 767px ou pointer coarse)
+- Motion permitido: LEVEL 2/3 discreto.
+- Órbita: função apenas atmosférica, nunca protagonista.
+- Opacidade máxima da camada de fundo: **0.40**.
+- Bloom: **até 0.03** (ideal 0).
+- Velocidade estrutural: **até 0.010**.
+- Parallax: **proibido**.
+
+### 2) Política de cores em animação
+
+- Usar somente tokens oficiais do projeto (style.md / index.css).
+- Para fundos animados, priorizar tons escuros e desaturados:
+  - Base: `--bg-dark`, `--bg-light`, `--highlight`, `--text-muted`.
+- `--primary` e `--secondary` devem atuar como acento, não como cor dominante contínua.
+- Proibido usar cores fora da paleta oficial para compensar contraste.
+
+### 3) Política de layout e foco visual
+
+- Animação nunca deve competir com H1, subtítulo e CTA da hero.
+- Em áreas com texto principal, a animação deve ficar atrás com prioridade visual menor.
+- Se houver colisão de atenção, reduzir na ordem:
+  1. brilho (bloom)
+  2. opacidade
+  3. velocidade
+  4. densidade de elementos
+- Em mobile, a legibilidade do texto tem prioridade absoluta sobre assinatura visual.
+
+### 4) Critérios de bloqueio (não publicar)
+
+Não publicar animação quando:
+- reduzir contraste percebido do texto principal;
+- exigir atenção contínua por movimento periférico;
+- gerar queda de fluidez de scroll;
+- ficar mais chamativa que o CTA principal.
+
+### 5) Governança de implementação
+
+- Toda animação nova deve declarar:
+  - nível de motion (1–4),
+  - objetivo de UX,
+  - limites por tela,
+  - fallback para `prefers-reduced-motion`.
+- Em revisão visual, priorizar clareza e hierarquia antes de “efeito”.
