@@ -23,6 +23,7 @@ function Footer() {
               </NavLink>
               <NavLink to="/sobre">Sobre Nós</NavLink>
               <NavLink to="/servicos">Serviços</NavLink>
+              <NavLink to="/contato">Contato</NavLink>
             </nav>
           </div>
 

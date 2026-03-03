@@ -17,7 +17,12 @@ import { servicesData } from '../data/services';
 import { useTypewriter } from '../animations/typewriter/useTypewriter';
 import CursorGlow from '../animations/glow/CursorGlow';
 
-const TYPEWRITER_WORDS = ['Marca', 'Posicionamento', 'Imagem', 'Profissionalismo'];
+const TYPEWRITER_WORDS = [
+  'Sites que convertem',
+  'Branding com estratégia',
+  'Conteúdo que engaja',
+  'Presença que gera confiança',
+];
 const HeroOrbitBackground = lazy(() =>
   import('../animations/orbit/HeroOrbitBackground')
 );
@@ -29,14 +34,16 @@ export default function Home() {
   const isServicesInView = useInView(servicesRef, { once: true, margin: '-100px' });
   const { displayedWord } = useTypewriter({ words: TYPEWRITER_WORDS });
   const [contactName, setContactName] = useState('');
+  const [contactSubject, setContactSubject] = useState('');
   const [contactEmail, setContactEmail] = useState('');
   const [contactMessage, setContactMessage] = useState('');
 
   const contactMailtoHref = useMemo(() => {
-    const recipient = 'jpessge@gmail.com';
-    const subject = contactName.trim() || 'Novo contato via site';
+    const recipient = 'contato@dotstudio.com.br';
+    const subject = contactSubject.trim() || 'Novo contato via site';
     const body = [
       `Nome: ${contactName.trim() || '-'}`,
+      `Assunto: ${contactSubject.trim() || '-'}`,
       `Email: ${contactEmail.trim() || '-'}`,
       '',
       'Projeto / Mensagem:',
@@ -44,12 +51,17 @@ export default function Home() {
     ].join('\n');
 
     return `mailto:${recipient}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
-  }, [contactEmail, contactMessage, contactName]);
+  }, [contactEmail, contactMessage, contactName, contactSubject]);
 
   const handleContactSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
 
-    if (!contactName.trim() || !contactEmail.trim() || !contactMessage.trim()) {
+    if (
+      !contactName.trim() ||
+      !contactSubject.trim() ||
+      !contactEmail.trim() ||
+      !contactMessage.trim()
+    ) {
       return;
     }
 
@@ -77,17 +89,17 @@ export default function Home() {
     {
       icon: Layers,
       title: 'Web Design',
-      desc: 'Interfaces intuitivas e esteticamente precisas, desenhadas para conversão e impacto visual.',
+      desc: 'Sites que carregam rápido, impressionam no primeiro acesso e transformam visitantes em clientes.',
     },
     {
       icon: Video,
       title: 'Edição de Vídeos',
-      desc: 'Vídeos dinâmicos e envolventes, otimizados para engajamento e compartilhamento nas redes sociais.',
+      desc: 'Vídeos que param o scroll e geram compartilhamentos feitos para Instagram, TikTok e YouTube.',
     },
     {
       icon: Zap,
       title: 'Experiência (UX/UI)',
-      desc: 'Foco no usuário para garantir navegação fluida e jornadas que fazem sentido.',
+      desc: 'Design pensado para que seu cliente encontre o que precisa em segundos sem frustração, sem abandono.',
     },
   ];
 
@@ -96,19 +108,19 @@ export default function Home() {
       icon: Target,
       title: 'Foco no Cliente',
       description:
-        'Cada projeto é único. Entendemos suas necessidades e criamos soluções personalizadas.',
+        'Antes de qualquer linha de código ou pixel, entendemos seu mercado, seu cliente e seus objetivos.',
     },
     {
       icon: Lightbulb,
       title: 'Inovação',
       description:
-        'Utilizamos as tecnologias mais recentes para entregar experiências digitais modernas.',
+        'React, Figma, animações e performance, ferramentas modernas aplicadas com propósito, não por modismo.',
     },
     {
       icon: Rocket,
       title: 'Resultados',
       description:
-        'Nosso objetivo é impulsionar seu negócio através de uma presença digital forte.',
+        'Sites mais rápidos, mais bonitos e que aparecem no Google. Presença digital que trabalha por você 24h por dia.',
     },
   ];
 
@@ -128,20 +140,19 @@ export default function Home() {
           >
             <motion.div variants={itemVariants} className="hero__badge">
               <span className="hero__badge-dot" />
-              Estúdio Digital Experimental
+              Agência Digital · Sites, Branding e Social Media
             </motion.div>
 
-            <motion.h1 className="hero__title">
-              Evoluindo sua marca
-              <br />
-              Através de <span className="hero__title-highlight">
-                {displayedWord}
-              </span>
-            </motion.h1>
+            <motion.h1 className="hero__title">Sua marca merece um site que vende.</motion.h1>
+
+            <motion.p variants={itemVariants} className="hero__typewriter">
+              Do site às redes sociais:&nbsp;
+              <span className="hero__title-highlight hero__typewriter-word">{displayedWord}</span>
+            </motion.p>
 
             <motion.p variants={itemVariants} className="hero__description">
-              A <strong>dot<span className="site-brand__dot">.</span></strong> é uma iniciativa focada na criação de sites e conteúdos digitais com
-              posicionamento experimental. Elevamos sua marca no ambiente digital.
+              A <strong>dot<span className="site-brand__dot">.</span></strong> cria sites, identidades visuais e conteúdo digital para pequenas e
+              médias empresas que querem crescer com consistência no digital.
             </motion.p>
 
             <motion.div variants={itemVariants} className="hero__actions">
@@ -164,7 +175,7 @@ export default function Home() {
             <div>
               <h2 className="highlights__title">O que fazemos.</h2>
               <p className="highlights__subtitle">
-                Trazemos soluções criativas e inovadoras para impulsionar sua marca no ambiente digital.
+                Soluções práticas para fortalecer sua marca, atrair clientes e gerar resultado no digital.
               </p>
             </div>
             <a href="/servicos" className="highlights__more">
@@ -205,22 +216,21 @@ export default function Home() {
                 SOBRE NÓS
               </span>
               <h2 className="about__title">
-                Seu negócio, sua marca, <strong>sua identidade</strong>
+                Presença digital forte para empresas que querem <strong>crescer</strong>
               </h2>
               <p className="about__text">
-                A <strong>dot<span className="site-brand__dot">.</span></strong> é uma startup focada em criação de
-                sites com posicionamento experimental e expansão futura de serviços digitais.
-                Acreditamos que cada marca merece uma presença digital única e impactante.
+                A <strong>dot<span className="site-brand__dot">.</span></strong> nasceu para resolver um problema real: muitas pequenas e médias
+                empresas ainda têm presença digital fraca, sites lentos, sem identidade e sem estratégia.
               </p>
               <p className="about__text">
-                Nossa abordagem combina design sofisticado com tecnologia de ponta, criando
-                experiências que não apenas impressionam, mas também convertem.
+                Combinamos design de alto impacto com tecnologia moderna para criar sites e conteúdos
+                que posicionam sua marca de verdade e transformam visitas em oportunidades.
               </p>
               <div className="about__highlight">
                 <div className="about__highlight-icon">+</div>
                 <div>
-                  <p className="about__highlight-title">Design Experimental</p>
-                  <p className="about__highlight-text">Quebrando padrões, criando tendências</p>
+                  <p className="about__highlight-title">Operação remota, atendimento nacional</p>
+                  <p className="about__highlight-text">Qualidade e proximidade para clientes em todo o Brasil</p>
                 </div>
               </div>
             </motion.div>
@@ -270,8 +280,7 @@ export default function Home() {
               Nossos <strong>Serviços</strong>
             </h2>
             <p className="services__description">
-              Oferecemos soluções completas para transformar sua presença digital e destacar sua
-              marca no mercado.
+              Tudo que sua marca precisa para crescer no digital do site às redes sociais.
             </p>
           </motion.div>
 
@@ -307,10 +316,10 @@ export default function Home() {
             <div className="contact__layout">
               <div>
                 <span className="eyebrow">Fale Conosco</span>
-                <h2 className="contact__title">Vamos iniciar seu próximo projeto digital.</h2>
+                <h2 className="contact__title">Pronto para decolar no digital? A gente cuida de tudo.</h2>
                 <p className="contact__text">
-                  Ajudamos sua marca a transformar ideias em experiências digitais com estética,
-                  performance e posicionamento de mercado.
+                  Conte com a <strong>dot<span className="site-brand__dot">.</span></strong> para transformar suas ideias em um projeto digital com estratégia,
+                  performance e identidade visual profissional.
                 </p>
 
                 <div className="contact__meta">
@@ -332,14 +341,27 @@ export default function Home() {
 
               <form className="contact-form" onSubmit={handleContactSubmit}>
                 <label className="contact-form__field" htmlFor="contact-name">
-                  Nome - Assunto
+                  Nome
                   <input
                     id="contact-name"
                     name="name"
                     type="text"
                     value={contactName}
                     onChange={(event) => setContactName(event.target.value)}
-                    placeholder="Seu nome - Assunto do contato"
+                    placeholder="Seu nome"
+                    required
+                  />
+                </label>
+
+                <label className="contact-form__field" htmlFor="contact-subject">
+                  Assunto
+                  <input
+                    id="contact-subject"
+                    name="subject"
+                    type="text"
+                    value={contactSubject}
+                    onChange={(event) => setContactSubject(event.target.value)}
+                    placeholder="Qual é o objetivo do projeto?"
                     required
                   />
                 </label>

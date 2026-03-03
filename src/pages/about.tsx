@@ -20,22 +20,21 @@ export default function Sobre() {
 
             <div className="about-page__text-group">
               <p className="about-page__text">
-                A <strong>dot<span className="about-page__title-highlight">.</span></strong> nasceu como uma iniciativa experimental, uma LTDA unipessoal criada com um
-                propósito claro: desafiar a mesmice da web atual através de design experimental e
-                tecnologia de ponta.
+                A <strong>dot<span className="about-page__title-highlight">.</span></strong> nasceu para resolver um problema real: muitas pequenas e médias
+                empresas brasileiras ainda têm presença digital fraca — sites lentos, sem identidade
+                e sem estratégia.
               </p>
 
               <p className="about-page__text">
-                Acreditamos que cada pixel importa e que a performance técnica não deve sacrificar
-                a estética. Nosso foco inicial é a criação de sites institucionais de alto impacto,
-                servindo como a base de um plano de expansão futura para serviços digitais mais
-                amplos e complexos.
+                Combinamos design de alto impacto com tecnologia moderna para criar sites e conteúdos
+                que posicionam sua marca no digital e transformam visitas em oportunidades reais de
+                negócio.
               </p>
 
               <p className="about-page__text">
-                Com um time seleto, estamos comprometidos para entregar soluções digitais onde 
-                não apenas atendemos, mas superamos as expectativas de nossos clientes, 
-                criando experiências memoráveis e resultados tangíveis.
+                Trabalhamos de forma remota, atendendo clientes em todo o Brasil com foco em clareza,
+                execução técnica e resultado. Cada projeto nasce de um objetivo: fazer sua marca ser
+                percebida, lembrada e escolhida.
               </p>
 
 
@@ -43,8 +42,8 @@ export default function Sobre() {
               <div className="about-page__vision">
                 <h2 className="about-page__vision-title">Nossa Visão</h2>
                 <p className="about-page__vision-text">
-                  Ser a ponte entre a estética experimental e a viabilidade comercial, criando
-                  produtos digitais que não apenas funcionam perfeitamente, mas que são lembrados.
+                  Ser a agência de referência para marcas que querem presença digital com identidade,
+                  combinando design preciso, tecnologia moderna e estratégia de conteúdo.
                 </p>
               </div>
             </div>
@@ -52,12 +51,22 @@ export default function Sobre() {
             <div className="about-page__stats" role="list" aria-label="Indicadores da dot.">
               <div className="about-page__stat" role="listitem">
                 <h4 className="about-page__stat-value">2026</h4>
-                <p className="about-page__stat-label">Ano de fundação</p>
+                <p className="about-page__stat-label">Fundação</p>
               </div>
 
               <div className="about-page__stat" role="listitem">
                 <h4 className="about-page__stat-value">100%</h4>
-                <p className="about-page__stat-label">Foco em qualidade</p>
+                <p className="about-page__stat-label">Projetos com revisão incluída</p>
+              </div>
+
+              <div className="about-page__stat" role="listitem">
+                <h4 className="about-page__stat-value">15–30 dias</h4>
+                <p className="about-page__stat-label">Prazo médio para sites institucionais</p>
+              </div>
+
+              <div className="about-page__stat" role="listitem">
+                <h4 className="about-page__stat-value">Remoto</h4>
+                <p className="about-page__stat-label">Atendimento em todo o Brasil</p>
               </div>
             </div>
           </motion.article>

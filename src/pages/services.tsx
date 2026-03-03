@@ -18,8 +18,7 @@ export default function Services() {
           >
             <h1 className="services-page__title">Nossos Serviços</h1>
             <p className="services-page__subtitle">
-              Soluções end-to-end projetadas para escalar o seu negócio e destacar sua marca no
-              ambiente digital.
+              Tudo que sua marca precisa para crescer no digital — do site às redes sociais.
             </p>
           </motion.header>
 
