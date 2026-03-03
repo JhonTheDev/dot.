@@ -1,0 +1,208 @@
+.contact-modal {
+  position: fixed;
+  inset: 0;
+  z-index: 120;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1rem;
+}
+
+.contact-modal__backdrop {
+  position: absolute;
+  inset: 0;
+  background-color: hsl(0 0% 0% / 0.65);
+  backdrop-filter: blur(4px);
+}
+
+.contact-modal__panel {
+  position: relative;
+  z-index: 1;
+  width: min(100%, 760px);
+  max-height: min(90vh, 760px);
+  overflow-y: auto;
+  border-radius: 1.1rem;
+  border: 1px solid hsl(330 2% 45% / 0.38);
+  background: linear-gradient(135deg, hsl(0 0% 9%), hsl(0 0% 4%));
+  box-shadow: 0 18px 50px hsl(0 0% 0% / 0.35);
+  padding: 1.25rem;
+}
+
+.contact-modal__close {
+  position: absolute;
+  top: 0.75rem;
+  right: 0.75rem;
+  width: 2.1rem;
+  height: 2.1rem;
+  border: 1px solid hsl(330 2% 45% / 0.45);
+  border-radius: 0.65rem;
+  background-color: hsl(0 0% 1% / 0.35);
+  color: var(--text-muted);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: color var(--transition-fast), border-color var(--transition-fast), background-color var(--transition-fast);
+}
+
+.contact-modal__close:hover {
+  color: var(--text);
+  border-color: hsl(52 95% 57% / 0.45);
+  background-color: hsl(0 0% 1% / 0.5);
+}
+
+.contact-modal__header {
+  margin-bottom: 1.2rem;
+  padding-right: 2.7rem;
+}
+
+.contact-modal__title {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.55rem;
+  font-size: clamp(1.45rem, 2.2vw, 2rem);
+}
+
+.contact-modal__title svg {
+  color: var(--primary);
+}
+
+.contact-modal__subtitle {
+  margin-top: 0.45rem;
+  color: var(--text-muted);
+  font-size: var(--text-sm);
+}
+
+.contact-modal__form {
+  display: grid;
+  gap: 1rem;
+}
+
+.contact-modal__section {
+  border: 1px solid hsl(330 2% 45% / 0.22);
+  border-radius: 0.9rem;
+  background-color: hsl(0 0% 1% / 0.25);
+  padding: 0.9rem;
+  display: grid;
+  gap: 0.7rem;
+}
+
+.contact-modal__section h3 {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  font-size: var(--text-base);
+  font-weight: var(--weight-semibold);
+}
+
+.contact-modal__section h3 svg {
+  color: var(--primary);
+}
+
+.contact-modal__grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0.7rem;
+}
+
+.contact-modal__field {
+  display: grid;
+  gap: 0.35rem;
+  color: var(--text-muted);
+  font-size: var(--text-sm);
+  font-weight: var(--weight-medium);
+}
+
+.contact-modal__field input,
+.contact-modal__field select,
+.contact-modal__field textarea {
+  width: 100%;
+  border-radius: 0.7rem;
+  border: 1px solid hsl(330 2% 45% / 0.42);
+  background-color: hsl(0 0% 9% / 0.85);
+  color: var(--text);
+  padding: 0.68rem 0.75rem;
+  font-family: var(--font-secondary);
+  font-size: var(--text-sm);
+  outline: none;
+  transition: border-color var(--transition-fast), box-shadow var(--transition-fast);
+}
+
+.contact-modal__field textarea {
+  min-height: 6.8rem;
+  resize: vertical;
+}
+
+.contact-modal__field input:focus,
+.contact-modal__field select:focus,
+.contact-modal__field textarea:focus {
+  border-color: hsl(52 95% 57% / 0.65);
+  box-shadow: 0 0 0 2px hsl(52 95% 57% / 0.15);
+}
+
+.contact-modal__field input::placeholder,
+.contact-modal__field textarea::placeholder {
+  color: hsl(300 0% 55%);
+}
+
+.contact-modal__actions {
+  display: flex;
+  gap: 0.7rem;
+  margin-top: 0.2rem;
+}
+
+.contact-modal__btn {
+  flex: 1;
+  min-height: 2.7rem;
+  border-radius: var(--radius-pill);
+  font-family: var(--font-primary);
+  font-weight: var(--weight-semibold);
+  border: 1px solid transparent;
+  cursor: pointer;
+  transition: transform var(--transition-base), background-color var(--transition-fast), border-color var(--transition-fast), color var(--transition-fast);
+}
+
+.contact-modal__btn:hover {
+  transform: translateY(-2px);
+}
+
+.contact-modal__btn--primary {
+  background-color: var(--primary);
+  color: var(--bg-dark);
+}
+
+.contact-modal__btn--primary:hover {
+  background-color: var(--text-highlight);
+}
+
+.contact-modal__btn--ghost {
+  border-color: hsl(330 2% 45% / 0.42);
+  color: var(--text);
+  background-color: transparent;
+}
+
+.contact-modal__btn--ghost:hover {
+  background-color: var(--bg-light);
+}
+
+@media (max-width: 767px) {
+  .contact-modal {
+    padding: 0.75rem;
+  }
+
+  .contact-modal__panel {
+    padding: 1rem 0.8rem;
+  }
+
+  .contact-modal__header {
+    margin-bottom: 0.95rem;
+  }
+
+  .contact-modal__grid {
+    grid-template-columns: 1fr;
+  }
+
+  .contact-modal__actions {
+    flex-direction: column;
+  }
+}
