@@ -11,6 +11,11 @@ node_modules
 dist
 dist-ssr
 *.local
+brainstorming
+AGENT.MD*
+ANIMATION.MD*
+STYLE.MD*
+
 
 # Editor directories and files
 .vscode/*

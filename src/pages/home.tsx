@@ -1,5 +1,5 @@
-import { lazy, Suspense, useEffect, useRef, useState } from 'react';
-import { motion, useInView, useReducedMotion, type Variants } from 'framer-motion';
+import { lazy, Suspense, useMemo, useRef, useState } from 'react';
+import { motion, useInView, type Variants } from 'framer-motion';
 import {
   ArrowRight,
   Zap,
@@ -7,24 +7,17 @@ import {
   Target,
   Lightbulb,
   Rocket,
-  Globe,
-  Palette,
-  Code2,
-  Megaphone,
-  HeartHandshake,
   Mail,
   Phone,
   MapPin,
-  Clapperboard,
   Video,
 } from 'lucide-react';
 import './home.css';
+import { servicesData } from '../data/services';
+import { useTypewriter } from '../animations/typewriter/useTypewriter';
+import CursorGlow from '../animations/glow/CursorGlow';
 
 const TYPEWRITER_WORDS = ['Marca', 'Posicionamento', 'Imagem', 'Profissionalismo'];
-const TYPEWRITER_CYCLE_MS = 2300;
-const TYPE_DURATION_RATIO = 0.48;
-const HOLD_DURATION_RATIO = 0.22;
-const ERASE_DURATION_RATIO = 0.3;
 const HeroOrbitBackground = lazy(() =>
   import('../animations/orbit/HeroOrbitBackground')
 );
@@ -32,55 +25,36 @@ const HeroOrbitBackground = lazy(() =>
 export default function Home() {
   const aboutRef = useRef(null);
   const servicesRef = useRef(null);
-  const prefersReducedMotion = useReducedMotion();
   const isAboutInView = useInView(aboutRef, { once: true, margin: '-100px' });
   const isServicesInView = useInView(servicesRef, { once: true, margin: '-100px' });
-  const [activeWordIndex, setActiveWordIndex] = useState(0);
-  const [typedWord, setTypedWord] = useState('');
+  const { displayedWord } = useTypewriter({ words: TYPEWRITER_WORDS });
+  const [contactName, setContactName] = useState('');
+  const [contactEmail, setContactEmail] = useState('');
+  const [contactMessage, setContactMessage] = useState('');
 
-  useEffect(() => {
-    if (prefersReducedMotion) {
+  const contactMailtoHref = useMemo(() => {
+    const recipient = 'jpessge@gmail.com';
+    const subject = contactName.trim() || 'Novo contato via site';
+    const body = [
+      `Nome: ${contactName.trim() || '-'}`,
+      `Email: ${contactEmail.trim() || '-'}`,
+      '',
+      'Projeto / Mensagem:',
+      contactMessage.trim() || '-',
+    ].join('\n');
+
+    return `mailto:${recipient}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+  }, [contactEmail, contactMessage, contactName]);
+
+  const handleContactSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+
+    if (!contactName.trim() || !contactEmail.trim() || !contactMessage.trim()) {
       return;
     }
 
-    const currentWord = TYPEWRITER_WORDS[activeWordIndex];
-    const typeDuration = TYPEWRITER_CYCLE_MS * TYPE_DURATION_RATIO;
-    const holdDuration = TYPEWRITER_CYCLE_MS * HOLD_DURATION_RATIO;
-    const eraseDuration = TYPEWRITER_CYCLE_MS * ERASE_DURATION_RATIO;
-    const tickIntervalMs = 50;
-    const startedAt = performance.now();
-
-    const intervalId = window.setInterval(() => {
-      const elapsed = performance.now() - startedAt;
-
-      if (elapsed >= TYPEWRITER_CYCLE_MS) {
-        setActiveWordIndex((prevIndex) => (prevIndex + 1) % TYPEWRITER_WORDS.length);
-        return;
-      }
-
-      if (elapsed <= typeDuration) {
-        const progress = elapsed / typeDuration;
-        const visibleChars = Math.max(1, Math.ceil(progress * currentWord.length));
-        setTypedWord(currentWord.slice(0, visibleChars));
-        return;
-      }
-
-      if (elapsed <= typeDuration + holdDuration) {
-        setTypedWord(currentWord);
-        return;
-      }
-
-      const eraseElapsed = elapsed - typeDuration - holdDuration;
-      const eraseProgress = eraseElapsed / eraseDuration;
-      const charsToErase = Math.ceil(eraseProgress * currentWord.length);
-      const visibleChars = Math.max(0, currentWord.length - charsToErase);
-      setTypedWord(currentWord.slice(0, visibleChars));
-    }, tickIntervalMs);
-
-    return () => {
-      window.clearInterval(intervalId);
-    };
-  }, [activeWordIndex, prefersReducedMotion]);
+    window.location.href = contactMailtoHref;
+  };
 
   const containerVariants: Variants = {
     hidden: { opacity: 0 },
@@ -138,48 +112,9 @@ export default function Home() {
     },
   ];
 
-  const services = [
-    {
-      icon: Globe,
-      title: 'Criação de Sites',
-      description:
-        'Sites personalizados, responsivos e otimizados para SEO, garantindo que sua presença online seja forte e eficaz.',
-      highlight: true,
-    },
-    {
-      icon: Palette,
-      title: 'Design de Interface',
-      description:
-        'Interfaces modernas e intuitivas que proporcionam uma experiência excepcional aos seus usuários.',
-    },
-    {
-      icon: Code2,
-      title: 'Criação de Aplicações Web',
-      description:
-        'Soluções web robustas e escaláveis, utilizando as tecnologias mais recentes para garantir performance e segurança.',
-    },
-    {
-      icon: Megaphone,
-      title: 'Marketing Digital',
-      description:
-        'Estratégias de marketing digital para aumentar a visibilidade da sua marca e atrair mais clientes.',
-    },
-    {
-      icon: HeartHandshake,
-      title: 'Consultoria de Branding',
-      description:
-        'Ajudamos a construir uma identidade de marca sólida e consistente, que ressoe com seu público-alvo.',
-    },
-    {
-      icon: Clapperboard,
-      title: 'Criação de Conteúdo Digital',
-      description:
-        'Criação de vídeos, animações e outros conteúdos digitais para engajar seu público e fortalecer sua presença online.',
-    }
-  ];
-
   return (
     <div className="home-page">
+      <CursorGlow hiddenSelectors={['.hero']} />
       <section id="inicio" className="hero">
         <Suspense fallback={null}>
           <HeroOrbitBackground />
@@ -200,12 +135,12 @@ export default function Home() {
               Evoluindo sua marca
               <br />
               Através de <span className="hero__title-highlight">
-                {prefersReducedMotion ? TYPEWRITER_WORDS[0] : typedWord}
+                {displayedWord}
               </span>
             </motion.h1>
 
             <motion.p variants={itemVariants} className="hero__description">
-              A dot. é uma iniciativa focada na criação de sites e conteúdos digitais com
+              A <strong>dot<span className="site-brand__dot">.</span></strong> é uma iniciativa focada na criação de sites e conteúdos digitais com
               posicionamento experimental. Elevamos sua marca no ambiente digital.
             </motion.p>
 
@@ -227,12 +162,12 @@ export default function Home() {
             className="highlights__header"
           >
             <div>
-              <h2 className="highlights__title">Soluções digitais.</h2>
+              <h2 className="highlights__title">O que fazemos.</h2>
               <p className="highlights__subtitle">
-                Soluções criativas e inovadoras para impulsionar sua marca no ambiente digital.
+                Trazemos soluções criativas e inovadoras para impulsionar sua marca no ambiente digital.
               </p>
             </div>
-            <a href="#servicos" className="highlights__more">
+            <a href="/servicos" className="highlights__more">
               Ver todos <ArrowRight size={16} />
             </a>
           </motion.div>
@@ -273,7 +208,7 @@ export default function Home() {
                 Seu negócio, sua marca, <strong>sua identidade</strong>
               </h2>
               <p className="about__text">
-                A <strong>dot.</strong> é uma startup focada em criação de
+                A <strong>dot<span className="site-brand__dot">.</span></strong> é uma startup focada em criação de
                 sites com posicionamento experimental e expansão futura de serviços digitais.
                 Acreditamos que cada marca merece uma presença digital única e impactante.
               </p>
@@ -341,7 +276,7 @@ export default function Home() {
           </motion.div>
 
           <div className="services__grid">
-            {services.map((service, index) => (
+            {servicesData.map((service, index) => (
               <motion.div
                 key={service.title}
                 initial={{ opacity: 0, y: 30 }}
@@ -369,32 +304,76 @@ export default function Home() {
             viewport={{ once: true }}
             transition={{ duration: 0.7 }}
           >
-            <span className="eyebrow">Fale Conosco</span>
-            <h2 className="contact__title">Vamos iniciar seu próximo projeto digital.</h2>
-            <p className="contact__text">
-              Ajudamos sua marca a transformar ideias em experiências digitais com estética,
-              performance e posicionamento de mercado.
-            </p>
+            <div className="contact__layout">
+              <div>
+                <span className="eyebrow">Fale Conosco</span>
+                <h2 className="contact__title">Vamos iniciar seu próximo projeto digital.</h2>
+                <p className="contact__text">
+                  Ajudamos sua marca a transformar ideias em experiências digitais com estética,
+                  performance e posicionamento de mercado.
+                </p>
 
-            <div className="contact__actions">
-              <a className="btn btn--primary btn--hero" href="mailto:contato@dotstudio.com.br">
-                Enviar E-mail <ArrowRight size={18} />
-              </a>
-              <a className="btn btn--ghost btn--hero" href="tel:+5500000000000">
-                Conversar Agora
-              </a>
-            </div>
+                <div className="contact__meta">
+                  <div className="contact-meta">
+                    <Mail size={16} /> contato@dotstudio.com.br
+                  </div>
+                  <div className="contact-meta">
+                    <Phone size={16} /> +55 (00) 0000-0000
+                  </div>
+                  <div className="contact-meta">
+                    <MapPin size={16} /> Operação remota · Brasil
+                  </div>
+                </div>
 
-            <div className="contact__meta">
-              <div className="contact-meta">
-                <Mail size={16} /> contato@dotstudio.com.br
+                <a className="btn btn--ghost btn--hero contact__phone-btn" href="tel:+5500000000000">
+                  Conversar Agora
+                </a>
               </div>
-              <div className="contact-meta">
-                <Phone size={16} /> +55 (00) 0000-0000
-              </div>
-              <div className="contact-meta">
-                <MapPin size={16} /> Operação remota · Brasil
-              </div>
+
+              <form className="contact-form" onSubmit={handleContactSubmit}>
+                <label className="contact-form__field" htmlFor="contact-name">
+                  Nome - Assunto
+                  <input
+                    id="contact-name"
+                    name="name"
+                    type="text"
+                    value={contactName}
+                    onChange={(event) => setContactName(event.target.value)}
+                    placeholder="Seu nome - Assunto do contato"
+                    required
+                  />
+                </label>
+
+                <label className="contact-form__field" htmlFor="contact-email">
+                  E-mail
+                  <input
+                    id="contact-email"
+                    name="email"
+                    type="email"
+                    value={contactEmail}
+                    onChange={(event) => setContactEmail(event.target.value)}
+                    placeholder="seuemail@exemplo.com"
+                    required
+                  />
+                </label>
+
+                <label className="contact-form__field" htmlFor="contact-message">
+                  Projeto / Mensagem
+                  <textarea
+                    id="contact-message"
+                    name="message"
+                    value={contactMessage}
+                    onChange={(event) => setContactMessage(event.target.value)}
+                    placeholder="Descreva seu projeto, objetivo ou problema"
+                    rows={5}
+                    required
+                  />
+                </label>
+
+                <button className="btn btn--primary btn--hero contact-form__submit" type="submit">
+                  Enviar E-mail <ArrowRight size={18} />
+                </button>
+              </form>
             </div>
           </motion.div>
         </div>
