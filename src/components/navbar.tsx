@@ -16,7 +16,12 @@ function Navbar() {
 						<NavLink to="/sobre">Sobre</NavLink>
 						<NavLink to="/servicos">Serviços</NavLink>
 					</nav>
-					<NavLink className="btn btn--primary btn--small" to="/contato">
+					<NavLink
+						to="/contato"
+						className={({ isActive }) =>
+							`btn btn--primary btn--small ${isActive ? 'btn--contact-active' : ''}`
+						}
+					>
 						Fale Conosco
 					</NavLink>
 				</div>

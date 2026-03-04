@@ -1,12 +1,20 @@
 import { Mail, MapPin, SendHorizontal } from 'lucide-react';
+import { motion } from 'framer-motion';
+import CursorGlow from '../animations/glow/CursorGlow';
 import './contact.css';
 
 export default function Contact() {
   return (
     <div className="contact-page" id="contato">
+      <CursorGlow />
       <section className="contact-page__section">
         <div className="section-container contact-page__container">
-          <header className="contact-page__header">
+          <motion.header
+            className="contact-page__header"
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5 }}
+          >
             <span className="eyebrow">ENTRE EM CONTATO</span>
             <h1 className="contact-page__title">
               Pronto para tirar seu projeto do <strong>papel</strong>?
@@ -15,9 +23,14 @@ export default function Contact() {
               A <strong>dot<span className="site-brand__dot">.</span></strong> cria sites, branding e conteúdo digital para empresas que querem crescer com
               estratégia e presença profissional no digital.
             </p>
-          </header>
+          </motion.header>
 
-          <div className="contact-page__grid">
+          <motion.div
+            className="contact-page__grid"
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5, delay: 0.1 }}
+          >
             <form
               className="contact-page__form"
               action="mailto:contato@dotstudio.com.br"
@@ -45,7 +58,7 @@ export default function Contact() {
                 />
               </label>
 
-              <button type="submit" className="contact-page__submit">
+              <button type="submit" className="contact-page__submit contact-page__submit--form">
                 Quero receber uma proposta <SendHorizontal size={16} />
               </button>
             </form>
@@ -88,7 +101,7 @@ export default function Contact() {
                 </a>
               </div>
             </aside>
-          </div>
+          </motion.div>
         </div>
       </section>
     </div>

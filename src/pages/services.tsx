@@ -22,7 +22,10 @@ export default function Services() {
             </p>
           </motion.header>
 
-          <ServicesHoverGrid services={servicesData} ctaHref="#contato" />
+          <ServicesHoverGrid
+            services={servicesData}
+            ctaHref="https://wa.me/5500000000000?text=Ol%C3%A1%2C%20quero%20entender%20melhor%20os%20servi%C3%A7os%20da%20dot."
+          />
         </div>
       </section>
     </div>

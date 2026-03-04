@@ -7,8 +7,8 @@ import {
   Target,
   Lightbulb,
   Rocket,
+  Sparkles,
   Mail,
-  Phone,
   MapPin,
   Video,
 } from 'lucide-react';
@@ -94,12 +94,12 @@ export default function Home() {
     {
       icon: Video,
       title: 'Edição de Vídeos',
-      desc: 'Vídeos que param o scroll e geram compartilhamentos feitos para Instagram, TikTok e YouTube.',
+      desc: 'Vídeos que param o scroll e geram compartilhamentos — feitos para Instagram, TikTok e YouTube.',
     },
     {
       icon: Zap,
       title: 'Experiência (UX/UI)',
-      desc: 'Design pensado para que seu cliente encontre o que precisa em segundos sem frustração, sem abandono.',
+      desc: 'Design pensado para que seu cliente encontre o que precisa em segundos — sem frustração, sem abandono.',
     },
   ];
 
@@ -114,7 +114,7 @@ export default function Home() {
       icon: Lightbulb,
       title: 'Inovação',
       description:
-        'React, Figma, animações e performance, ferramentas modernas aplicadas com propósito, não por modismo.',
+        'React, Figma, animações e performance — ferramentas modernas aplicadas com propósito, não por modismo.',
     },
     {
       icon: Rocket,
@@ -158,6 +158,9 @@ export default function Home() {
             <motion.div variants={itemVariants} className="hero__actions">
               <a href="#contato" className="btn btn--primary btn--hero">
                 Solicitar Orçamento <ArrowRight size={20} />
+              </a>
+              <a href="/servicos" className="btn btn--ghost btn--hero">
+                Ver nossos serviços <ArrowRight size={20} />
               </a>
             </motion.div>
           </motion.div>
@@ -227,7 +230,9 @@ export default function Home() {
                 que posicionam sua marca de verdade e transformam visitas em oportunidades.
               </p>
               <div className="about__highlight">
-                <div className="about__highlight-icon">+</div>
+                <div className="about__highlight-icon" aria-hidden="true">
+                  <Sparkles size={20} />
+                </div>
                 <div>
                   <p className="about__highlight-title">Operação remota, atendimento nacional</p>
                   <p className="about__highlight-text">Qualidade e proximidade para clientes em todo o Brasil</p>
@@ -280,7 +285,7 @@ export default function Home() {
               Nossos <strong>Serviços</strong>
             </h2>
             <p className="services__description">
-              Tudo que sua marca precisa para crescer no digital do site às redes sociais.
+              Tudo que sua marca precisa para crescer no digital — do site às redes sociais.
             </p>
           </motion.div>
 
@@ -319,15 +324,12 @@ export default function Home() {
                 <h2 className="contact__title">Pronto para decolar no digital? A gente cuida de tudo.</h2>
                 <p className="contact__text">
                   Conte com a <strong>dot<span className="site-brand__dot">.</span></strong> para transformar suas ideias em um projeto digital com estratégia,
-                  performance e identidade visual profissional.
+                  performance e posicionamento de marca.
                 </p>
 
                 <div className="contact__meta">
                   <div className="contact-meta">
                     <Mail size={16} /> contato@dotstudio.com.br
-                  </div>
-                  <div className="contact-meta">
-                    <Phone size={16} /> +55 (00) 0000-0000
                   </div>
                   <div className="contact-meta">
                     <MapPin size={16} /> Operação remota · Brasil
@@ -348,7 +350,7 @@ export default function Home() {
                     type="text"
                     value={contactName}
                     onChange={(event) => setContactName(event.target.value)}
-                    placeholder="Seu nome"
+                    placeholder="Seu nome completo"
                     required
                   />
                 </label>
@@ -361,7 +363,7 @@ export default function Home() {
                     type="text"
                     value={contactSubject}
                     onChange={(event) => setContactSubject(event.target.value)}
-                    placeholder="Qual é o objetivo do projeto?"
+                    placeholder="Assunto ou serviço de interesse"
                     required
                   />
                 </label>
@@ -386,7 +388,7 @@ export default function Home() {
                     name="message"
                     value={contactMessage}
                     onChange={(event) => setContactMessage(event.target.value)}
-                    placeholder="Descreva seu projeto, objetivo ou problema"
+                    placeholder="Conte rapidamente seu objetivo, prazo e serviço de interesse"
                     rows={5}
                     required
                   />

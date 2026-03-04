@@ -1,4 +1,6 @@
+import { useState, type KeyboardEvent } from 'react';
 import { AnimatePresence, motion } from 'framer-motion';
+import { ArrowRight, ChevronDown } from 'lucide-react';
 import type { ServiceItem } from '../../../data/services';
 import { hoverExpandMotion } from '../config/hoverExpandConfig';
 import { ServiceExpandedPanel } from './ServiceExpandedPanel';
@@ -24,6 +26,27 @@ export function ServiceHoverCard({
   onFocusActivate,
   ctaHref,
 }: ServiceHoverCardProps) {
+  const [inlineExpanded, setInlineExpanded] = useState(false);
+
+  const toggleInlineExpand = (): void => {
+    if (interactive) {
+      return;
+    }
+
+    setInlineExpanded((current) => !current);
+  };
+
+  const handleInlineKeyDown = (event: KeyboardEvent<HTMLElement>): void => {
+    if (interactive) {
+      return;
+    }
+
+    if (event.key === 'Enter' || event.key === ' ') {
+      event.preventDefault();
+      toggleInlineExpand();
+    }
+  };
+
   return (
     <motion.article
       layout={interactive}
@@ -38,7 +61,10 @@ export function ServiceHoverCard({
       }}
       onMouseEnter={() => onActivate(index)}
       onFocus={() => onFocusActivate(index)}
-      tabIndex={interactive ? 0 : undefined}
+      onClick={toggleInlineExpand}
+      onKeyDown={handleInlineKeyDown}
+      tabIndex={interactive ? 0 : 0}
+      aria-expanded={interactive ? isActive : inlineExpanded}
     >
       <div className="services-hover-card__summary">
         <div className="services-hover-card__icon-wrap">
@@ -47,6 +73,24 @@ export function ServiceHoverCard({
 
         <h2 className="services-hover-card__title">{service.title}</h2>
         <p className="services-hover-card__description">{service.description}</p>
+
+        {!interactive && (
+          <div className="services-hover-card__actions-mobile">
+            <a href={ctaHref} className="services-hover-card__cta-inline" onClick={(event) => event.stopPropagation()}>
+              {service.ctaLabel || 'Solicitar Orçamento'} <ArrowRight size={16} />
+            </a>
+            <button
+              type="button"
+              className="services-hover-card__toggle"
+              onClick={(event) => {
+                event.stopPropagation();
+                toggleInlineExpand();
+              }}
+            >
+              {inlineExpanded ? 'Ocultar detalhes' : 'Ver detalhes'} <ChevronDown size={16} />
+            </button>
+          </div>
+        )}
 
         <div className="services-hover-card__watermark" aria-hidden="true">
           <service.icon size={92} strokeWidth={1.4} />
@@ -58,6 +102,8 @@ export function ServiceHoverCard({
           {isActive && <ServiceExpandedPanel service={service} ctaHref={ctaHref} />}
         </AnimatePresence>
       )}
+
+      {!interactive && inlineExpanded && <ServiceExpandedPanel service={service} ctaHref={ctaHref} />}
 
       <motion.div
         className="services-hover-card__accent"

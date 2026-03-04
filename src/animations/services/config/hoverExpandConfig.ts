@@ -36,10 +36,10 @@ export const hoverExpandMotion = {
 };
 
 export const hoverExpandTicker = {
-  initialExpandDelayMs: 800,
-  collapseDelayMs: 1200,
-  switchExpandDelayMs: 1000,
-  panelCollapseDurationMs: 300,
+  initialExpandDelayMs: 120,
+  collapseDelayMs: 180,
+  switchExpandDelayMs: 120,
+  panelCollapseDurationMs: 180,
 };
 
 export const defaultServiceTopics = [

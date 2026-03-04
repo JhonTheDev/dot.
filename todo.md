@@ -15,12 +15,13 @@
 ### 🎨 Interface Principal
 - [x] Criação de Loading personalizado
 - [x] Estilização da navbar
-- [x] Melhorar index com imagens
+- [ ] Melhorar imagens demonstração
 - [x] Adicionar vídeos na página inicial
 - [x] Implementar animações CSS
 - [ ] Otimizar responsividade
 - [x] Melhorar experiência do usuário (UX)
 - [x] Estilizar página de contato
+
 
 ### 📦 Otimizações
 - [ ] Minificar arquivos CSS/JS

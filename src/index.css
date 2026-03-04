@@ -195,6 +195,11 @@ a {
   background-color: var(--text-highlight);
 }
 
+.btn--contact-active {
+  background-color: transparent;
+  color: var(--text-highlight);
+}
+
 .btn--ghost {
   border-color: hsl(330 2% 45% / 0.45);
   color: var(--text);

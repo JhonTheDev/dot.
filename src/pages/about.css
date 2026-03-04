@@ -1,5 +1,5 @@
 .about-page {
-  width: 95%;
+  width: 100%;
 }
 
 .about-page__section {
@@ -7,7 +7,7 @@
 }
 
 .about-page__container {
-  max-width: 860px;
+  max-width: 920px;
 }
 
 .about-page__content {
@@ -24,6 +24,20 @@
 
 .about-page__title-highlight {
   color: var(--primary);
+}
+
+.about-page__media {
+  margin: 0 0 1.75rem;
+  border-radius: var(--radius-lg);
+  border: 1px solid hsl(330 2% 45% / 0.35);
+  overflow: hidden;
+}
+
+.about-page__media img {
+  width: 100%;
+  aspect-ratio: 16 / 7;
+  object-fit: cover;
+  display: block;
 }
 
 .about-page__text-group {
@@ -57,9 +71,108 @@
   line-height: 1.7;
 }
 
+.about-page__section-title {
+  margin: 0 0 0.9rem;
+  font-size: clamp(1.5rem, 2.2vw, 2rem);
+  letter-spacing: var(--tracking-tight);
+}
+
+.about-page__timeline,
+.about-page__stack,
+.about-page__values {
+  margin-top: 2.1rem;
+}
+
+.about-page__timeline-list {
+  display: grid;
+  gap: 0.85rem;
+}
+
+.about-page__timeline-item {
+  border-radius: var(--radius-md);
+  border: 1px solid hsl(330 2% 45% / 0.32);
+  background-color: hsl(0 0% 9% / 0.55);
+  padding: 0.9rem;
+  display: flex;
+  align-items: flex-start;
+  gap: 0.7rem;
+}
+
+.about-page__timeline-icon {
+  width: 2.2rem;
+  height: 2.2rem;
+  border-radius: 0.7rem;
+  background-color: hsl(52 95% 57% / 0.14);
+  color: var(--primary);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.about-page__timeline-year {
+  font-family: var(--font-primary);
+  font-weight: var(--weight-semibold);
+  margin-bottom: 0.12rem;
+}
+
+.about-page__timeline-text {
+  color: var(--text-muted);
+}
+
+.about-page__stack-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.55rem;
+}
+
+.about-page__stack-chip {
+  border-radius: 999px;
+  border: 1px solid hsl(330 2% 45% / 0.36);
+  background-color: hsl(0 0% 9% / 0.72);
+  padding: 0.45rem 0.75rem;
+  font-size: var(--text-sm);
+  color: var(--text-muted);
+}
+
+.about-page__values-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 0.85rem;
+}
+
+.about-page__value-card {
+  border-radius: var(--radius-md);
+  border: 1px solid hsl(330 2% 45% / 0.36);
+  background-color: hsl(0 0% 9% / 0.62);
+  padding: 1rem;
+}
+
+.about-page__value-icon {
+  width: 2.25rem;
+  height: 2.25rem;
+  border-radius: 0.7rem;
+  background-color: hsl(52 95% 57% / 0.14);
+  color: var(--primary);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 0.6rem;
+}
+
+.about-page__value-card h3 {
+  margin-bottom: 0.35rem;
+  font-size: var(--text-lg);
+}
+
+.about-page__value-card p {
+  color: var(--text-muted);
+  font-size: var(--text-sm);
+}
+
 .about-page__stats {
-  margin-top: 3.25rem;
-  padding-top: 2.5rem;
+  margin-top: 1.1rem;
+  padding-top: 1.1rem;
   border-top: 1px solid hsl(330 2% 45% / 0.2);
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
@@ -80,6 +193,33 @@
   font-weight: var(--weight-medium);
 }
 
+.about-page__cta {
+  margin-top: 2rem;
+  border-radius: var(--radius-lg);
+  border: 1px solid hsl(330 2% 45% / 0.36);
+  background-color: hsl(0 0% 9% / 0.72);
+  padding: 1.2rem;
+}
+
+.about-page__cta h2 {
+  margin-bottom: 0.3rem;
+  font-size: clamp(1.4rem, 2vw, 2rem);
+}
+
+.about-page__cta p {
+  margin-bottom: 0.8rem;
+  color: var(--text-muted);
+}
+
+.about-page__cta-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  color: var(--primary);
+  font-family: var(--font-primary);
+  font-weight: var(--weight-semibold);
+}
+
 @media (max-width: 767px) {
   .about-page__section {
     padding: 4rem 0 4.6rem;
@@ -93,10 +233,29 @@
     padding: 1.2rem 1.1rem;
   }
 
+  .about-page__timeline,
+  .about-page__stack,
+  .about-page__values {
+    margin-top: 1.5rem;
+  }
+
+  .about-page__values-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .about-page__stack-list {
+    grid-template-columns: 1fr;
+  }
+
   .about-page__stats {
-    margin-top: 2.2rem;
+    margin-top: 1rem;
     padding-top: 1.6rem;
     grid-template-columns: 1fr;
     gap: 1.3rem;
+  }
+
+  .about-page__cta {
+    margin-top: 1.5rem;
+    padding: 1rem;
   }
 }

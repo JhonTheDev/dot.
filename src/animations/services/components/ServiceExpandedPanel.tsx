@@ -1,4 +1,4 @@
-import { motion } from 'framer-motion';
+import { motion, useReducedMotion } from 'framer-motion';
 import { ArrowRight } from 'lucide-react';
 import { defaultServiceTopics, hoverExpandMotion } from '../config/hoverExpandConfig';
 import type { ServiceItem } from '../../../data/services';
@@ -9,7 +9,37 @@ type ServiceExpandedPanelProps = {
 };
 
 export function ServiceExpandedPanel({ service, ctaHref }: ServiceExpandedPanelProps) {
+  const prefersReducedMotion = Boolean(useReducedMotion());
   const topics = service.topics && service.topics.length > 0 ? service.topics : defaultServiceTopics;
+
+  if (prefersReducedMotion) {
+    return (
+      <div className="services-hover-card__expanded">
+        <div className="services-hover-card__image-wrap">
+          <div className="services-hover-card__image-overlay" aria-hidden="true" />
+          <img
+            src={service.imageSrc}
+            alt={service.imageAlt || service.title}
+            className="services-hover-card__image"
+            loading="lazy"
+          />
+        </div>
+
+        <ul className="services-hover-card__topics">
+          {topics.map((topic) => (
+            <li key={topic} className="services-hover-card__topic-item">
+              {topic}
+            </li>
+          ))}
+        </ul>
+
+        <a href={ctaHref} className="services-hover-card__cta">
+          {service.ctaLabel || 'Solicitar Orçamento'} <ArrowRight size={16} />
+        </a>
+      </div>
+    );
+  }
+
   const panelVariants = {
     expanded: {
       opacity: 1,
